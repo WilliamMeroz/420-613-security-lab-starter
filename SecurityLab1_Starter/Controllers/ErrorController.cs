@@ -9,9 +9,20 @@ namespace SecurityLab1_Starter.Controllers
     public class ErrorController : Controller
     {
         // GET: Error
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         public ActionResult NotFound()
         {
-            return View("~/Views/Error/NotFound.cshtml");
+            return View();
+        }
+
+        public ActionResult ServerError()
+        {
+            return View();
         }
     }
 }

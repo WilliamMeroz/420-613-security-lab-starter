@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +17,19 @@ namespace SecurityLab1_Starter
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        protected void Application_Error()
+        {
+            using (EventLog eventLog = new EventLog("System"))
+            {
+                eventLog.Source = "System";
+                var ex = Server.GetLastError();
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                eventLog.WriteEntry(ex.Message);
+                Response.Redirect("/Error/ServerError");
+            }
+
         }
     }
 }
